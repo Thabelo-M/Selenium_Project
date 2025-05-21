@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thabelo - Selenium Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial; padding: 20px; max-width: 600px; margin: auto; }
+        .product, .cart { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+        .btn { padding: 8px 12px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        .btn-remove { background-color: #dc3545; }
+        .hidden { display: none; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 10px; }
+        label { font-weight: bold; }
+        .form-group { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <h1>Final Project for Selenium</h1>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQRD2npkciWvDt8kAQbNMkRFIsOXq0Lkvfhg&s" alt="Bug Logo" width="100"><br><br>
+
+    <div class="product">
+        <h3>Bug keyboard - $10</h3>
+        <button class="btn" onclick="addToCart()">Add to Cart</button>
+        <h3>Bug mouse - $7</h3>
+        <button class="btn" onclick="addToCart()">Add to Cart</button>
+        <h3>Bug pad - $12</h3>
+        <button class="btn" onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <div class="cart hidden" id="cart">
+        <h3>Your Cart</h3>
+        <p id="cart-item">Bug x1</p>
+        <input type="text" id="promo" placeholder="Enter promo code">
+        <button class="btn" onclick="applyPromo()">Apply Promo</button>
+        <p id="promo-msg"></p>
+        <button class="btn" onclick="checkout()">Checkout</button>
+        <button class="btn btn-remove" onclick="removeItem()">Remove Item</button>
+    </div>
+
+    <div class="hidden" id="checkout-form">
+        <h3>Checkout</h3>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Your Email">
+        </div>
+        <div class="form-group">
+            <label>What type of phone are you using?</label><br>
+            <input type="checkbox" id="android" name="device" value="Android"> Android<br>
+            <input type="checkbox" id="ios" name="device" value="iOS"> iOS<br>
+            <input type="checkbox" id="other" name="device" value="Other"> Other<br>
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="">-- Select Gender --</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="prefer_not_say">Prefer not to say</option>
+            </select>
+        </div>
+        <button class="btn" onclick="submitOrder()">Submit Order</button>
+        <p id="thank-you" class="hidden">Thank you for your purchase!</p>
+    </div>
+
+    <script>
+        function addToCart() {
+            document.getElementById('cart').classList.remove('hidden');
+        }
+
+        function applyPromo() {
+            const code = document.getElementById('promo').value;
+            const msg = document.getElementById('promo-msg');
+            if (code === "QA10") {
+                msg.textContent = "Promo applied! 10% off.";
+                msg.style.color = "green";
+            } else {
+                msg.textContent = "Invalid code.";
+                msg.style.color = "red";
+            }
+        }
+
+        function removeItem() {
+            document.getElementById('cart').classList.add('hidden');
+        }
+
+        function checkout() {
+            document.getElementById('checkout-form').classList.remove('hidden');
+        }
+
+        function submitOrder() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            if (name && email) {
+                document.getElementById('thank-you').classList.remove('hidden');
+            } else {
+                alert("Please fill out name and email.");
+            }
+        }
+    </script>
+
+</body>
+</html>
